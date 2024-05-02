@@ -12,14 +12,14 @@ import LimitedPartnersGrid from './LimitedPartnersGrid';
 
 function App() {
 
-  const username = process.env.REACT_APP_USERNAME;
-  const password = process.env.REACT_APP_PASSWORD;
+  // const username = process.env.REACT_APP_USERNAME;
+  // const password = process.env.REACT_APP_PASSWORD;
 
-  const [token, setToken] = useState('');
+  // const [token, setToken] = useState('');
 
-  const handleTokenFetch = (newToken) => {
-    setToken(newToken);
-  };
+  // const handleTokenFetch = (newToken) => {
+  //   setToken(newToken);
+  // };
 
       const [rowData, setRowData] = useState([
         { name: "New Jersey Division of Investment", domicile: "Trenton, United States", companyType: 'Pension Fund (Public)', companyCurrency: 'USD', totalFundCommitments: '178', totalFundCommitmentsUSD: '23,337.57', totalSeparateAccounts: '21', aumLocal: '76,704.00', aumUSD: '9,807.76'    },
@@ -69,8 +69,8 @@ function App() {
       return (
         <div className="ag-theme-quartz" style={{ height: 500 }}>
         <AgGridReact rowData={rowData} columnDefs={colDefs}/>
-        {<TokenFetcher username={username} password={password} onDataFetch={handleTokenFetch} /> }
-      {token && <LimitedPartnersGrid token={token} />} 
+        {/* {<TokenFetcher username={username} password={password} onDataFetch={handleTokenFetch} /> }
+      {token && <LimitedPartnersGrid token={token} />}  */}
         </div>
   );
 }
