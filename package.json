@@ -18,7 +18,9 @@
     "build": "dotenv -e .env react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-proxy": "node proxy-server.js"
+    "start-proxy": "node proxy-server.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +41,8 @@
     ]
   },
   "devDependencies": {
-    "dotenv": "^16.4.5"
-  }
+    "dotenv": "^16.4.5",
+    "gh-pages": "^6.1.1"
+  },
+  "homepage": "https://aliamk.github.io/AG-Grid-Test"
 }
