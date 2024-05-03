@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ag-grid-test/static/css/main.d477639d.css",
+    "main.js": "/ag-grid-test/static/js/main.c51529c3.js",
+    "static/js/453.b721aab1.chunk.js": "/ag-grid-test/static/js/453.b721aab1.chunk.js",
+    "index.html": "/ag-grid-test/index.html",
+    "main.d477639d.css.map": "/ag-grid-test/static/css/main.d477639d.css.map",
+    "main.c51529c3.js.map": "/ag-grid-test/static/js/main.c51529c3.js.map",
+    "453.b721aab1.chunk.js.map": "/ag-grid-test/static/js/453.b721aab1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d477639d.css",
+    "static/js/main.c51529c3.js"
+  ]
+}
