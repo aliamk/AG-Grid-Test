@@ -1,41 +1,58 @@
 import './App.css';
+import jsonData from './data.json';
+import fundsData from './funds.json';
 
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
+import "ag-grid-community/styles/ag-theme-balham.css"; // Optional Theme applied to the grid
+import "ag-grid-community/styles/ag-theme-material.css"; // Optional Theme applied to the grid
+import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional Theme applied to the grid
+
 import "ag-grid-enterprise"
+import "ag-grid-charts-enterprise";
+import {
+  ColDef,
+  ColGroupDef,
+  FirstDataRenderedEvent,
+  GridApi,
+  GridOptions,
+  ModuleRegistry,
+  createGrid,
+} from "@ag-grid-community/core";
+import { Grid } from '@ag-grid-community/core';
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+import { ChartsEnterpriseModule } from '@ag-grid-enterprise/charts-enterprise';
+import { MenuModule } from '@ag-grid-enterprise/menu';
+import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 
-import { useState } from 'react';
 
-import TokenFetcher from './TokenFetcher';
-import LimitedPartnersGrid from './LimitedPartnersGrid';
+import { useState, useEffect } from 'react';
 
-function App() {
+// import TokenFetcher from './TokenFetcher';
 
   // const username = process.env.REACT_APP_USERNAME;
   // const password = process.env.REACT_APP_PASSWORD;
 
-  // const [token, setToken] = useState('');
+const enableCharts = true;
+const enableRangeSelection = true;
 
-  // const handleTokenFetch = (newToken) => {
-  //   setToken(newToken);
-  // };
+const TableComponent1 = () => {
+      const [rowData, setRowData] = useState([]);
 
-      const [rowData, setRowData] = useState([
-        { name: "New Jersey Division of Investment", domicile: "Trenton, United States", companyType: 'Pension Fund (Public)', companyCurrency: 'USD', totalFundCommitments: '178', totalFundCommitmentsUSD: '23,337.57', totalSeparateAccounts: '21', aumLocal: '76,704.00', aumUSD: '9,807.76'    },
-        { name: "Hong Kong Jockey Club", domicile: "Hong Kong, Hong Kong", companyType: 'Foundation', companyCurrency: 'HKD', totalFundCommitments: '3', totalFundCommitmentsUSD: '0.00', totalSeparateAccounts: '0', aumLocal: '76,704.00', aumUSD: '9,807.76' },
-        { name: "Toyota", domicile: "Corolla", companyType: 29600, companyCurrency: false },
-      ]);
-      
+      useEffect(() => {
+          setRowData(jsonData.limitedPartners);
+      }, []);
+
        /* Column Definitions: Defines the columns to be displayed. */
-      const [colDefs, setColDefs] = useState([
+      const [columnDefs, setColumnDefs] = useState([
         { headerName: 'Name', field: 'name' },
-        { headerName: 'Domicile', field: 'domicile' },
-        { headerName: 'Company Type', field: 'companyType' },
-        { headerName: 'Company Currency', field: 'companyCurrency' },
-        { headerName: 'Total Fund Commitments', field: 'totalFundCommitments' },
-        { headerName: 'Total Fund Commitments (USD m)', field: 'totalFundCommitmentsUSD' },
-        { headerName: 'Total Separate Accounts', field: 'totalSeparateAccounts' },
+        { headerName: 'Domicile', field: 'domicile', chartDataType: 'category' },
+        { headerName: 'Company Type', field: 'companyType', chartDataType: 'category' },
+        { headerName: 'Company Currency', field: 'currency', chartDataType: 'category' },
+        { headerName: 'Total Fund Commitments', field: 'totalFundCommitments', chartDataType: 'series' },
+        { headerName: 'Total Fund Commitments (USD m)', field: 'totalFundCommitmentsUSD', chartDataType: 'series' },
+        { headerName: 'Total Separate Accounts', field: 'totalSeparateAccounts', chartDataType: 'series' },
         { headerName: 'AUM (Local Currency m)', field: 'aumLocal' },
         { headerName: 'AUM (USD m)', field: 'aumUSD' },
         { headerName: 'RE Current Allocation (%)', field: 'reTargetAllocationToPercentage' },
@@ -62,16 +79,69 @@ function App() {
         { headerName: 'Website', field: 'website' },
         { headerName: 'Corporate Email', field: 'corporateEmail' },
         { headerName: 'Main Address', field: 'mainAddress' },
+      ]);
+
+      const defaultColDef = {
+        filter: true,
+        minWidth: 100,
+      };
+
+      return (
+        <div className="ag-theme-quartz-auto-dark" style={{ height: 500, marginTop: 10, marginRight: 20, marginBottom: 80, marginLeft: 20 }}>
+        <AgGridReact rowData={rowData} columnDefs={columnDefs} defaultColDef={defaultColDef} pagination={true} paginationPageSize={15} enableCharts={enableCharts} enableRangeSelection={enableRangeSelection} />
+        </div>
+  );
+}
 
 
+const TableComponent2 = () => {
+      const [rowData, setRowData] = useState([]);
+
+      useEffect(() => {
+          setRowData(fundsData.funds);
+      }, []);
+
+       /* Column Definitions: Defines the columns to be displayed. */
+      const [columnDefs, setColumnDefs] = useState([
+        { headerName: 'Name', field: 'name' },
+        { headerName: 'General Partners', field: 'generalPartners', chartDataType: 'category' },
+        { headerName: 'Asset Class', field: 'assetClass', chartDataType: 'category' },
+        { headerName: 'Status', field: 'status', chartDataType: 'category' },
+        { headerName: 'Latest Event', field: 'latestEvent', chartDataType: 'category' },
+        { headerName: 'Latest Event Date', field: 'latestEventDate', chartDataType: 'category' },
+        { headerName: 'Currency', field: 'currency', chartDataType: 'category' },
+        { headerName: 'Initial Target Size Local', field: 'initialTargetSizeLocal', chartDataType: 'series' },
+        { headerName: 'Initial Target Size USD', field: 'initialTargetSizeUSD', chartDataType: 'series' },
+        { headerName: 'Target Size Local', field: 'targetSizeLocal', chartDataType: 'series' },
+        { headerName: 'Target Size Local USD', field: 'targetSizeUSD', chartDataType: 'series' },
+        { headerName: 'Hard Cap Local', field: 'hardCapLocal', chartDataType: 'series' },
+        { headerName: 'Hard Cap Local USD', field: 'hardCapLocalUSD', chartDataType: 'series' },
+        { headerName: 'Target Net IRR Minimum', field: 'targetNetIRRMinimum', chartDataType: 'series' },
 
       ]);
+
+      const defaultColDef = {
+        filter: true,
+        minWidth: 100,
+      };
+
       return (
-        <div className="ag-theme-quartz" style={{ height: 500 }}>
-        <AgGridReact rowData={rowData} columnDefs={colDefs}/>
-        {/* {<TokenFetcher username={username} password={password} onDataFetch={handleTokenFetch} /> }
-      {token && <LimitedPartnersGrid token={token} />}  */}
+        <div className="ag-theme-material-dark" style={{ height: 500, marginLeft: 20, marginRight: 20 }}>
+        <AgGridReact rowData={rowData} columnDefs={columnDefs} defaultColDef={defaultColDef} pagination={true} paginationPageSize={15} enableCharts={enableCharts} enableRangeSelection={enableRangeSelection} />
+        {/* <div></div> */}
         </div>
+  );
+}
+
+
+const App = () => {
+  return (
+    <div>
+      <h2 style={{ textAlign: 'center' }}>Table 1</h2>
+      <TableComponent1 />
+      <h2 style={{ textAlign: 'center' }}>Table 2</h2>
+      <TableComponent2 />
+    </div>
   );
 }
 
