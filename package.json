@@ -27,7 +27,7 @@
     "eject": "react-scripts eject",
     "start-proxy": "node proxy-server.js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build -b main"
   },
   "eslintConfig": {
     "extends": [
