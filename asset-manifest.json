@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ag-grid-test/static/css/main.d477639d.css",
-    "main.js": "/ag-grid-test/static/js/main.c62644b4.js",
+    "main.css": "/ag-grid-test/static/css/main.e16ac43c.css",
+    "main.js": "/ag-grid-test/static/js/main.dcd497da.js",
     "static/js/453.b721aab1.chunk.js": "/ag-grid-test/static/js/453.b721aab1.chunk.js",
     "index.html": "/ag-grid-test/index.html",
-    "main.d477639d.css.map": "/ag-grid-test/static/css/main.d477639d.css.map",
-    "main.c62644b4.js.map": "/ag-grid-test/static/js/main.c62644b4.js.map",
+    "main.e16ac43c.css.map": "/ag-grid-test/static/css/main.e16ac43c.css.map",
+    "main.dcd497da.js.map": "/ag-grid-test/static/js/main.dcd497da.js.map",
     "453.b721aab1.chunk.js.map": "/ag-grid-test/static/js/453.b721aab1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d477639d.css",
-    "static/js/main.c62644b4.js"
+    "static/css/main.e16ac43c.css",
+    "static/js/main.dcd497da.js"
   ]
 }
